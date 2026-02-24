@@ -2,6 +2,7 @@
 
 @import "tailwindcss";
 
+/* Custom theme colors using Tailwind v4 @theme */
 @theme {
   --color-primary: #1E293B;
   --color-secondary: #334155;
@@ -10,17 +11,21 @@
   --color-text: #F8FAFC;
   --color-muted: #94A3B8;
 
-  --font-family-sans: 'Space Grotesk', sans-serif;
-  --font-family-heading: 'Archivo', sans-serif;
+  --font-family-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-family-heading: 'Archivo', ui-sans-serif, system-ui, sans-serif;
 
   --animate-fade-in: fadeIn 0.5s ease-out;
-  --animate-slide-up: slideUp 0.6s ease-out;
+  --animate-slide-up: slideUp 0.6s ease-out forwards;
   --animate-float: float 6s ease-in-out infinite;
 }
 
 :root {
-  --background: #0F172A;
-  --foreground: #F8FAFC;
+  --color-primary: #1E293B;
+  --color-secondary: #334155;
+  --color-accent: #22C55E;
+  --color-background: #0F172A;
+  --color-text: #F8FAFC;
+  --color-muted: #94A3B8;
 }
 
 * {
@@ -34,9 +39,9 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Space Grotesk', sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Custom scrollbar */
@@ -45,11 +50,11 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1E293B;
+  background: var(--color-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: var(--color-secondary);
   border-radius: 4px;
 }
 
@@ -59,19 +64,25 @@ body {
 
 /* Selection */
 ::selection {
-  background: #22C55E;
-  color: #0F172A;
+  background: var(--color-accent);
+  color: var(--color-background);
 }
 
 /* Animations */
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes float {
@@ -80,12 +91,22 @@ body {
 }
 
 @keyframes gradient {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }
 
 .animate-gradient {
@@ -99,4 +120,47 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom color utility classes */
+.bg-primary { background-color: var(--color-primary); }
+.bg-secondary { background-color: var(--color-secondary); }
+.bg-accent { background-color: var(--color-accent); }
+.bg-background { background-color: var(--color-background); }
+
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-accent { color: var(--color-accent); }
+.text-text { color: var(--color-text); }
+.text-muted { color: var(--color-muted); }
+
+.border-accent { border-color: var(--color-accent); }
+.border-muted { border-color: var(--color-muted); }
+
+/* Font family */
+.font-heading {
+  font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Background opacity variants */
+.bg-primary\/20 { background-color: rgba(30, 41, 59, 0.2); }
+.bg-secondary\/50 { background-color: rgba(51, 65, 85, 0.5); }
+.bg-accent\/10 { background-color: rgba(34, 197, 94, 0.1); }
+.bg-accent\/20 { background-color: rgba(34, 197, 94, 0.2); }
+.bg-accent\/5 { background-color: rgba(34, 197, 94, 0.05); }
+
+.text-accent\/80 { color: rgba(34, 197, 94, 0.8); }
+
+.border-muted\/10 { border-color: rgba(148, 163, 184, 0.1); }
+.border-muted\/20 { border-color: rgba(148, 163, 184, 0.2); }
+.border-muted\/30 { border-color: rgba(148, 163, 184, 0.3); }
+.border-accent\/50 { border-color: rgba(34, 197, 94, 0.5); }
+
+.shadow-accent\/25 { box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.25); }
+
+/* Gradient text */
+.text-transparent {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
