@@ -28,11 +28,6 @@
   --color-muted: #94A3B8;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
 
 html {
   scroll-behavior: smooth;
